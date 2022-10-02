@@ -1,5 +1,12 @@
 <template>
-  Проверка что все работает. Если вы это читаете, значит все работает!
+  <div class="content">
+    <p>Проверка что все работает. Если вы это читаете, значит все работает!</p>
+  </div>
 </template>
 <script></script>
-<style></style>
+<style>
+.content {
+  display: flex;
+  justify-content: center;
+}
+</style>
