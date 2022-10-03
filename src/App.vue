@@ -68,7 +68,10 @@
     <div class="exampleNote">
       <h2>V-if и работа с ним</h2>
       <h3>Синтаксис v-if:</h3>
-      <p>v-if=''</p>
+      <p>
+        v-if='переменная' - если переменная будет true, то отобразиться то,
+        отобразиться элемент, на котором установлена эта директива
+      </p>
       <button @click="switcherBoolean">Показать работу v-if</button>
       <button @click="showVifElse">Показать работу v-else-if</button>
       <div v-if="tempNumber == 1" class="vifDiv">
@@ -100,6 +103,28 @@
         </p>
       </div>
     </div>
+    <div class="exampleNote">
+      <h2>Computed-свойства!</h2>
+      <p>
+        Нужны для того, чтобы вычислять что то, только в том случае, если
+        зависящие данные изменились
+      </p>
+      <div class="examplecontainer">
+        <p>
+          Для примера возьмем 3 квадратика. В первом, красном, будут собираться
+          числа. В синем будут собираться числа больше 3, а в зеленом числа
+          больше 5
+        </p>
+        <button class="buttonMargin10" @click="simpleIncrem">
+          Incrementator
+        </button>
+        <div class="computedExample">
+          <div class="red cub">{{ calculatedNumber }}</div>
+          <div class="blue cub">{{ singularIncrementatorBlue }}</div>
+          <div class="green cub">{{ singularIncrementatorGreen }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -114,7 +139,24 @@ export default {
       buttonActivationName: "Активация кнопки",
       timeOut: true,
       tempNumber: 0,
+      calculatedNumber: 0,
+      blueCalcNumb: 0,
+      greenCalcNumb: 0,
     };
+  },
+  computed: {
+    singularIncrementatorBlue() {
+      if (this.calculatedNumber > 3) {
+        this.blueCalcNumb = this.calculatedNumber;
+        return this.blueCalcNumb;
+      }
+    },
+    singularIncrementatorGreen() {
+      if (this.calculatedNumber > 5) {
+        this.greenCalcNumb = this.calculatedNumber;
+        return this.greenCalcNumb;
+      }
+    },
   },
   methods: {
     // это свойство для добавления методов в компонент, обработчики событий, другие вспомогательные функции.
@@ -155,6 +197,9 @@ export default {
         console.log(`Время еще не вышло: ${this.timeOut}`);
       }
     },
+    simpleIncrem() {
+      this.calculatedNumber++;
+    },
   },
 };
 </script>
@@ -179,5 +224,29 @@ hr {
   border-top: 2px solid green;
   margin: 1em 0;
   padding: 0;
+}
+.computedExample {
+  display: flex;
+  width: 500px;
+  justify-content: space-around;
+}
+.cub {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: blue;
+}
+.green {
+  background-color: green;
+}
+.buttonMargin10 {
+  margin: 10px 0 10px 0;
 }
 </style>
