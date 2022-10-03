@@ -114,9 +114,7 @@
         помечается как display: none.
       </p>
       <button @click="switchShow">{{ textShowButton }}</button>
-      <div class="vshow" v-show="vShowBoolean">
-        Тсссс.... Скрытый текст!
-      </div>
+      <div class="vshow" v-show="vShowBoolean">Тсссс.... Скрытый текст!</div>
     </div>
     <div class="exampleNote">
       <h2>Computed-свойства!</h2>
@@ -184,6 +182,17 @@
         </p>
       </div>
     </div>
+    <div class="exampleNote">
+      <h2>Директива v-for</h2>
+      <p>Тот же самый for что и в JS, только нужно указывать по какому ключу нужно итерироваться.</p>
+<div class="ulfor">
+  <ul>
+    <li v-for="{id, name, age, profession} in objectArray" key="id">
+    Username is: {{name}}, age: {{age}}, profession: {{profession}}.
+    </li>
+  </ul>
+</div>
+      </div>
   </div>
 </template>
 <script>
@@ -204,6 +213,15 @@ export default {
       colorBoolean: false,
       vShowBoolean: false,
       textShowButton: "Показать скрытый текст",
+      objectArray: [
+        { id: 1, name: "Alex", age: "196", profession: "demon" },
+        { id: 2, name: "Xela", age: "19", profession: "student" },
+        { id: 3, name: "Exal", age: "6", profession: "children" },
+        { id: 4, name: "Lexa", age: "16", profession: "sportsmen" },
+        { id: 5, name: "Laxe", age: "96", profession: "old fart" },
+        { id: 6, name: "Aelx", age: "69", profession: "pensioner" },
+        { id: 7, name: "Exla", age: "39", profession: "It seems to be the new son of Elon Musk" },
+      ],
     };
   },
   computed: {
@@ -341,7 +359,4 @@ hr {
   text-align: center;
   margin: auto;
 }
-/* .vshow p {
-padding-top: 90px;
-} */
 </style>
