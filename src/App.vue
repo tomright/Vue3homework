@@ -31,7 +31,7 @@
       <button :disabled="isButtonDisabled" @click="alertMsgActivButton">
         Чтобы активировать нажмите на кнопку активации
       </button>
-      <button @click="activationButton">{{ buttonActivationName }}</button>
+      <button class="buttonMarginLeft10" @click="activationButton">{{ buttonActivationName }}</button>
     </div>
     <div class="exampleNote">
       <h2>Директива v-on</h2>
@@ -72,8 +72,8 @@
         v-if='переменная' - если переменная будет true, то отобразиться то,
         отобразиться элемент, на котором установлена эта директива
       </p>
-      <button @click="switcherBoolean">Показать работу v-if</button>
-      <button @click="showVifElse">Показать работу v-else-if</button>
+      <button  @click="switcherBoolean">Показать работу v-if</button>
+      <button class="buttonMarginLeft10" @click="showVifElse">Показать работу v-else-if</button>
       <div v-if="tempNumber == 1" class="vifDiv">
         <p>
           Это текст, который скрыт при помощи директивы v-if. Так же из-за этой
@@ -113,9 +113,11 @@
         <p>
           Для примера возьмем 3 квадратика. В первом, красном, будут собираться
           числа. В синем будут собираться числа больше 3, а в зеленом числа
-          больше 5
+          больше 5.
         </p>
-        <button class="buttonMargin10" @click="simpleIncrem">
+        <p>В итоге значения в зеленом и синем квадратиках будут собираться только тогда, когда будет выполнятся метод из computed свойства.</p>
+        <p>Вообще computed свойства напоимнают ленивую арифметику. Типа мы будем считать только тогда, когда это действительно будет нужно, а пока отвалите!</p>
+        <button class="buttonMargin10 buttonMarginLeft10" @click="simpleIncrem">
           Incrementator
         </button>
         <div class="computedExample">
@@ -248,5 +250,8 @@ hr {
 }
 .buttonMargin10 {
   margin: 10px 0 10px 0;
+}
+.buttonMarginLeft10{
+    margin-left: 10px;
 }
 </style>
