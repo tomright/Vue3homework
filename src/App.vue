@@ -184,18 +184,54 @@
     </div>
     <div class="exampleNote">
       <h2>Директива v-for</h2>
-      <p>Тот же самый for что и в JS, только нужно указывать по какому ключу нужно итерироваться.</p>
-<div class="ulfor">
-  <ul>
-    <li v-for="{id, name, age, profession} in objectArray" key="id">
-    Username is: {{name}}, age: {{age}}, profession: {{profession}}.
-    </li>
-  </ul>
-</div>
+      <p>
+        Тот же самый for что и в JS, только нужно указывать по какому ключу
+        нужно итерироваться.
+      </p>
+      <p><strong>Синтаксис: </strong> v-for="item in iterable" key="item.id"</p>
+      <div class="ulfor">
+        <p><strong>Пример:</strong></p>
+        <ul>
+          <li v-for="{ id, name, age, profession } in objectArray" key="id">
+            Username is: {{ name }}, age: {{ age }}, profession:
+            {{ profession }}.
+          </li>
+        </ul>
       </div>
+      <div class="divfor">
+        <p><strong>Пример с повторением div через v-for:</strong></p>
+        <button @click="divForSwitcher">{{ usernameListShowButton }}</button>
+        <div
+          v-show="usernameBooleanSwitcher"
+          class="usernameList"
+          v-for="{ id, name, username, email } in vForDivArray"
+          key="id"
+        >
+          <p>Name: {{ name }}</p>
+          <p>Username: {{ username }}</p>
+          <p>E-mail: {{ email }}</p>
+        </div>
+      </div>
+      <div class="divfor">
+        <p>
+          <strong
+            >Пример с повторением div через v-for, но добавляя индексы:</strong
+          >
+        </p>
+        <div
+          class="usernameList"
+          v-for="({ filmName, year }, index) in vForIndexTestArray"
+        >
+          <p>Порядковый номер фильма: {{ index+1 }}</p>
+          <p>Название фильма: {{ filmName }}</p>
+          <p>Год выхода фильма: {{ year }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   //есть договоренность что в eport default есть методы data() - который возвращает некоторый объект с данными, methods
   data() {
@@ -213,6 +249,7 @@ export default {
       colorBoolean: false,
       vShowBoolean: false,
       textShowButton: "Показать скрытый текст",
+      usernameListShowButton: "Много текста, нажми если хочешь увидеть",
       objectArray: [
         { id: 1, name: "Alex", age: "196", profession: "demon" },
         { id: 2, name: "Xela", age: "19", profession: "student" },
@@ -220,7 +257,19 @@ export default {
         { id: 4, name: "Lexa", age: "16", profession: "sportsmen" },
         { id: 5, name: "Laxe", age: "96", profession: "old fart" },
         { id: 6, name: "Aelx", age: "69", profession: "pensioner" },
-        { id: 7, name: "Exla", age: "39", profession: "It seems to be the new son of Elon Musk" },
+        {
+          id: 7,
+          name: "Exla",
+          age: "39",
+          profession: "It seems to be the new son of Elon Musk",
+        },
+      ],
+      vForDivArray: [],
+      usernameBooleanSwitcher: false,
+      vForIndexTestArray: [
+        { filmName: "Области тьмы", year: 2011 },
+        { filmName: "Игра на понижение", year: 2015 },
+        { filmName: "Такси", year: 1998 },
       ],
     };
   },
@@ -296,6 +345,29 @@ export default {
     simpleIncrem() {
       this.calculatedNumber++;
     },
+    async getUsers() {
+      try {
+        const users = await axios.get(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+        this.vForDivArray = users.data;
+        console.log(users);
+      } catch (e) {
+        alert(`Произошла ошибка ${e}`);
+      }
+    },
+    divForSwitcher() {
+      if (this.usernameBooleanSwitcher) {
+        this.usernameBooleanSwitcher = false;
+        this.usernameListShowButton = "Много текста, нажми если хочешь увидеть";
+      } else {
+        this.usernameBooleanSwitcher = true;
+        this.usernameListShowButton = "Много текста, нажми если хочешь скрыть";
+      }
+    },
+  },
+  mounted() {
+    this.getUsers();
   },
 };
 </script>
@@ -358,5 +430,15 @@ hr {
   font-size: 20px;
   text-align: center;
   margin: auto;
+}
+.usernameList {
+  border: 1px solid darkgreen;
+  margin-top: 10px;
+}
+.usernameList:nth-child(odd) {
+  background-color: rgb(235, 255, 219);
+}
+.usernameList:nth-child(even) {
+  background-color: azure;
 }
 </style>
