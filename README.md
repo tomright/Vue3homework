@@ -1,6 +1,6 @@
-# demo
+# Vue3homework
 
-This template should help get you started developing with Vue 3 in Vite.
+Проект создан в качестве страницы для домашних заданий и в качестве шпаргалки.
 
 ## Recommended IDE Setup
 
@@ -14,6 +14,11 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ```sh
 npm install
+
+```
+### Install axios
+```sh
+npm install axios
 ```
 
 ### Compile and Hot-Reload for Development
