@@ -18,12 +18,39 @@
       <h2>Логические атрибуты</h2>
       <p>
         К атрибутам disabled так же можно забиндиться\привязаться, для примера
-        ниже есть 2 кнопки, одна кнопка привязана к значению переменной
+        ниже есть 2 кнопки, у кнопки под названием "Чтобы активировать нажмите
+        на кнопку активации" привязка к логической переменной isButtonDisabled и
+        в методе activationButton() происходит смена значения.
+      </p>
+      <p>
+        У кнопки Активации\Деактивации, имя кнопки выведено в перменную и есть
+        событие при клике, которое вызывает activationButton()
       </p>
       <button :disabled="isButtonDisabled" @click="alertMsgActivButton">
         Чтобы активировать нажмите на кнопку активации
       </button>
       <button @click="activationButton">{{ buttonActivationName }}</button>
+    </div>
+    <hr />
+    <div class="exampleNote">
+      <h2>Директива v-on</h2>
+      <p>
+        Директива v-on, нужна для того чтобы можно было повесить отбработчик
+        событий на элемент. Например на кнопке слушать событие клика: button
+        v-on:click="функцияОбработчик"
+      </p>
+      <p>
+        Но поскольку лишний раз нажимать на клавиатуру лениво, то есть
+        сокращенная запись: @click="функцияОбработчик" - все будет работать так
+        же.
+      </p>
+      <p>
+        Ниже кнопка, в которой применен и v-on: и @: (провзаимодействуй со
+        страницей, чтобы что то изменилось ;) )
+      </p>
+      <button v-on:mouseover="hoverSound" @click="alertMsgActivButton">
+        Нажми на кнопку, получишь результат
+      </button>
     </div>
     <hr />
   </div>
@@ -38,9 +65,11 @@ export default {
       tagId: "header",
       isButtonDisabled: true,
       buttonActivationName: "Активация кнопки",
+      timeOut: true,
     };
   },
-  methods: {
+    methods: { // это свойство для добавления методов в компонент, обработчики событий, другие вспомогательные функции. 
+    // Используется сокращенный метот объявления фукнции имяФункции() { то что функция делает}, так же не забываем ставить запятые. 
     activationButton() {
       if (this.isButtonDisabled) {
         this.isButtonDisabled = false;
@@ -52,6 +81,19 @@ export default {
     },
     alertMsgActivButton() {
       alert("Вы молодец!");
+    },
+    hoverSound() {
+      if (this.timeOut) {
+        let sound = new Audio();
+        sound.src = "./src/assets/najmi.mp3";
+        sound.autoplay = true;
+        this.timeOut = false;
+        setTimeout(() => {
+          this.timeOut = true;
+        }, 15000);
+      } else {
+        console.log(`Время еще не вышло: ${this.timeOut}`);
+      }
     },
   },
 };
