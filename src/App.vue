@@ -55,8 +55,50 @@
     </div>
     <div class="exampleNote">
       <h2>Methods: и this</h2>
-      <p>В methods: {} добавляются методы для работы с данными компоненты, данные лежат в data(), доступ к данным в опции methods осуществляется через this.названиеПеременнойИзДата</p>
-      <P>Для записи лучше всего писать сокращенный способ объявления функций. Пример: hoverSound() {код который что то делает}</P>
+      <p>
+        В methods: {} добавляются методы для работы с данными компоненты, данные
+        лежат в data(), доступ к данным в опции methods осуществляется через
+        this.названиеПеременнойИзДата
+      </p>
+      <p>
+        Для записи лучше всего писать сокращенный способ объявления функций.
+        Пример: hoverSound() {код который что то делает}
+      </p>
+    </div>
+    <div class="exampleNote">
+      <h2>V-if и работа с ним</h2>
+      <h3>Синтаксис v-if:</h3>
+      <p>v-if=''</p>
+      <button @click="switcherBoolean">Показать работу v-if</button>
+      <button @click="showVifElse">Показать работу v-else-if</button>
+      <div v-if="tempNumber == 1" class="vifDiv">
+        <p>
+          Это текст, который скрыт при помощи директивы v-if. Так же из-за этой
+          директивы, если условие не срабатывает, то этот текст не будет
+          существовать в DOM дереве.
+        </p>
+      </div>
+      <div v-else-if="tempNumber == 2">
+        <p>
+          Помимо обычного v-if и v-else, существует еще и
+          <strong>v-else-if</strong>. <strong>v-else-if</strong> - применяется
+          сразу строго после v-if и обрабатывает другие знанчения условия.
+        </p>
+        <p>
+          Например чтобы увидеть этот пример, был использован v-else-if, который
+          проверял значение tempNumber = 2.
+        </p>
+        <p>
+          Таких v-else-if может быть бесконечно большое количество. Самое важное
+          условие, чтобы они шли <strong>строго друг за другом</strong>
+        </p>
+      </div>
+      <div v-else>
+        <p>
+          У директивы есть и продолжение, которое называется v-else. Она
+          отработает если условие не сработало.
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -71,6 +113,7 @@ export default {
       isButtonDisabled: true,
       buttonActivationName: "Активация кнопки",
       timeOut: true,
+      tempNumber: 0,
     };
   },
   methods: {
@@ -85,6 +128,16 @@ export default {
         this.isButtonDisabled = true;
         this.buttonActivationName = "Активация кнопки";
       }
+    },
+    switcherBoolean() {
+      if (this.tempNumber == 1 || this.tempNumber) {
+        this.tempNumber = 0;
+      } else {
+        this.tempNumber = 1;
+      }
+    },
+    showVifElse() {
+      this.tempNumber = 2;
     },
     alertMsgActivButton() {
       alert("Вы молодец!");
