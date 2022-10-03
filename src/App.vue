@@ -108,6 +108,17 @@
       </div>
     </div>
     <div class="exampleNote">
+      <h2>Директива v-show</h2>
+      <p>
+        Директива <strong>v-show</strong> тоже скрывает элемент, но он
+        помечается как display: none.
+      </p>
+      <button @click="switchShow">{{ textShowButton }}</button>
+      <div class="vshow" v-show="vShowBoolean">
+        Тсссс.... Скрытый текст!
+      </div>
+    </div>
+    <div class="exampleNote">
       <h2>Computed-свойства!</h2>
       <p>
         Нужны для того, чтобы вычислять что то, только в том случае, если
@@ -157,13 +168,20 @@
         это непосредственно сам биндинг, классВцсс - это какой то класс CSS и
         переменная - это некоторая переменная, которая содержит значения.
       </p>
-      <p>Логика в том, что если в переменной будет значение означающее, <strong>false</strong> (false, 0, '', undefined, null, NaN), тот этот класс <strong>не будет</strong> применяться, в противном случае применится.</p>
+      <p>
+        Логика в том, что если в переменной будет значение означающее,
+        <strong>false</strong> (false, 0, '', undefined, null, NaN), тот этот
+        класс <strong>не будет</strong> применяться, в противном случае
+        применится.
+      </p>
 
       <div class="classCont">
         <button @click="switchColor" class="buttonMarginLeft10, buttonMargin10">
           Добавить к тексту класс цвета
         </button>
-        <p :class="{red: colorBoolean}">Пример текста, которому будем менять цвет.</p>
+        <p :class="{ red: colorBoolean }">
+          Пример текста, которому будем менять цвет.
+        </p>
       </div>
     </div>
   </div>
@@ -184,6 +202,8 @@ export default {
       blueCalcNumb: 0,
       greenCalcNumb: 0,
       colorBoolean: false,
+      vShowBoolean: false,
+      textShowButton: "Показать скрытый текст",
     };
   },
   computed: {
@@ -203,6 +223,15 @@ export default {
   methods: {
     // это свойство для добавления методов в компонент, обработчики событий, другие вспомогательные функции.
     // Используется сокращенный метот объявления фукнции имяФункции() { то что функция делает}, так же не забываем ставить запятые.
+    switchShow() {
+      if (this.vShowBoolean) {
+        this.vShowBoolean = false;
+        this.textShowButton = "Показать скрытый текст";
+      } else {
+        this.vShowBoolean = true;
+        this.textShowButton = "Скрыть текст...";
+      }
+    },
     switchColor() {
       if (this.colorBoolean) {
         this.colorBoolean = false;
@@ -301,4 +330,18 @@ hr {
 .buttonMarginLeft10 {
   margin-left: 10px;
 }
+.vshow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 200px;
+  background-color: darkseagreen;
+  font-size: 20px;
+  text-align: center;
+  margin: auto;
+}
+/* .vshow p {
+padding-top: 90px;
+} */
 </style>
