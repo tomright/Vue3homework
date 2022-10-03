@@ -31,7 +31,9 @@
       <button :disabled="isButtonDisabled" @click="alertMsgActivButton">
         Чтобы активировать нажмите на кнопку активации
       </button>
-      <button class="buttonMarginLeft10" @click="activationButton">{{ buttonActivationName }}</button>
+      <button class="buttonMarginLeft10" @click="activationButton">
+        {{ buttonActivationName }}
+      </button>
     </div>
     <div class="exampleNote">
       <h2>Директива v-on</h2>
@@ -72,8 +74,10 @@
         v-if='переменная' - если переменная будет true, то отобразиться то,
         отобразиться элемент, на котором установлена эта директива
       </p>
-      <button  @click="switcherBoolean">Показать работу v-if</button>
-      <button class="buttonMarginLeft10" @click="showVifElse">Показать работу v-else-if</button>
+      <button @click="switcherBoolean">Показать работу v-if</button>
+      <button class="buttonMarginLeft10" @click="showVifElse">
+        Показать работу v-else-if
+      </button>
       <div v-if="tempNumber == 1" class="vifDiv">
         <p>
           Это текст, который скрыт при помощи директивы v-if. Так же из-за этой
@@ -115,8 +119,19 @@
           числа. В синем будут собираться числа больше 3, а в зеленом числа
           больше 5.
         </p>
-        <p>В итоге значения в зеленом и синем квадратиках будут собираться только тогда, когда будет выполнятся метод из computed свойства.</p>
-        <p>Вообще computed свойства напоимнают ленивую арифметику. Типа мы будем считать только тогда, когда это действительно будет нужно, а пока отвалите!</p>
+        <p>
+          В итоге значения в зеленом и синем квадратиках будут собираться только
+          тогда, когда будет выполнятся метод из computed свойства.
+        </p>
+        <p>
+          Синтаксически, метод из computed свойства записывается через
+          интерполяцию, без круглых скобок.
+        </p>
+        <p>
+          Вообще computed свойства напоимнают ленивую арифметику. Типа мы будем
+          считать только тогда, когда это действительно будет нужно, а пока
+          отвалите!
+        </p>
         <button class="buttonMargin10 buttonMarginLeft10" @click="simpleIncrem">
           Incrementator
         </button>
@@ -125,6 +140,30 @@
           <div class="blue cub">{{ singularIncrementatorBlue }}</div>
           <div class="green cub">{{ singularIncrementatorGreen }}</div>
         </div>
+      </div>
+    </div>
+    <div class="exampleNote">
+      <h2>Привязка к стилям.</h2>
+      <p>
+        Привязка к стилям осуществляется через v-bind или через его сокращенную
+        форму.
+      </p>
+      <p>
+        Это нужно для того чтобы можно было динамически включать или выключать
+        некоторые классы.
+      </p>
+      <p>
+        <strong>Пример:</strong> :class="{классВцсс: переменная}", где :class -
+        это непосредственно сам биндинг, классВцсс - это какой то класс CSS и
+        переменная - это некоторая переменная, которая содержит значения.
+      </p>
+      <p>Логика в том, что если в переменной будет значение означающее, <strong>false</strong> (false, 0, '', undefined, null, NaN), тот этот класс <strong>не будет</strong> применяться, в противном случае применится.</p>
+
+      <div class="classCont">
+        <button @click="switchColor" class="buttonMarginLeft10, buttonMargin10">
+          Добавить к тексту класс цвета
+        </button>
+        <p :class="{red: colorBoolean}">Пример текста, которому будем менять цвет.</p>
       </div>
     </div>
   </div>
@@ -144,6 +183,7 @@ export default {
       calculatedNumber: 0,
       blueCalcNumb: 0,
       greenCalcNumb: 0,
+      colorBoolean: false,
     };
   },
   computed: {
@@ -163,6 +203,13 @@ export default {
   methods: {
     // это свойство для добавления методов в компонент, обработчики событий, другие вспомогательные функции.
     // Используется сокращенный метот объявления фукнции имяФункции() { то что функция делает}, так же не забываем ставить запятые.
+    switchColor() {
+      if (this.colorBoolean) {
+        this.colorBoolean = false;
+      } else {
+        this.colorBoolean = true;
+      }
+    },
     activationButton() {
       if (this.isButtonDisabled) {
         // получаем доступ к возвращаемому объекту функции дата через this. Пример на этой строчке
@@ -251,7 +298,7 @@ hr {
 .buttonMargin10 {
   margin: 10px 0 10px 0;
 }
-.buttonMarginLeft10{
-    margin-left: 10px;
+.buttonMarginLeft10 {
+  margin-left: 10px;
 }
 </style>
