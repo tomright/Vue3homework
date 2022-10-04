@@ -222,11 +222,29 @@
           class="usernameList"
           v-for="({ filmName, year }, index) in vForIndexTestArray"
         >
-          <p>Порядковый номер фильма: {{ index+1 }}</p>
+          <p>Порядковый номер фильма: {{ index + 1 }}</p>
           <p>Название фильма: {{ filmName }}</p>
           <p>Год выхода фильма: {{ year }}</p>
         </div>
       </div>
+    </div>
+    <div class="exampleNote">
+      <h2>Жизненный цикл компонента во VueJS. Хуки.</h2>
+      <button @click="simpleSwitcher">
+        {{ imgButton }}
+      </button>
+      <br>
+      <a
+        href="https://habr.com/ru/company/vk/blog/350962/?ysclid=l8udmnc49n759197539"
+      >
+        Отличная статья на Хабре по хукам</a
+      >
+      <br>
+      <img
+        v-show="imgSwitcher"
+        src="./assets/lifecycle.svg"
+        alt="Жизненный цикл приложения"
+      />
     </div>
   </div>
 </template>
@@ -271,6 +289,8 @@ export default {
         { filmName: "Игра на понижение", year: 2015 },
         { filmName: "Такси", year: 1998 },
       ],
+      imgButton: "Показать",
+      imgSwitcher: false,
     };
   },
   computed: {
@@ -363,6 +383,15 @@ export default {
       } else {
         this.usernameBooleanSwitcher = true;
         this.usernameListShowButton = "Много текста, нажми если хочешь скрыть";
+      }
+    },
+    simpleSwitcher() {
+      if (this.imgSwitcher) {
+        this.imgSwitcher = false;
+        this.imgButton = "Показать";
+      } else {
+        this.imgSwitcher = true;
+        this.imgButton = "Скрыть";
       }
     },
   },
