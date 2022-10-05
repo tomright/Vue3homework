@@ -287,6 +287,44 @@
         странице...
       </p>
     </div>
+    <div class="exampleNote">
+      <h2>Опция watch</h2>
+      <p>Необходима для слежения за каким нибудь полем в data или props.</p>
+      <p>
+        Пишется, для Options API в export default, там объявляется функция с
+        таким же именем что и поле в data\props и пишется тело функции.
+      </p>
+      <p><strong>Пример:</strong></p>
+      <p>watch: {</p>
+      <p>
+        watchSwitcher(){ // так же принимает аргументы: первый аргумент новое
+        значение, второй аргумент старое значение
+      </p>
+      <p>console.log('Изменилась переменная watchSwitcher')</p>
+      <p>}</p>
+      <p>},</p>
+      <p>Нажми на кнопку ниже и открой консоль браузера</p>
+      <button @click="watchSwitcherForButton">Нажми на меня</button>
+    </div>
+    <div class="exampleNote">
+      <h2 ref="h2Refs">Параметр refs</h2>
+      <p>
+        Параметр refs нужен для прямой работы с некоторым объектами DOM дерева,
+        причем работать с ними можно будет как будто они получены из JS.
+        Например можно получать свойство оъекта innerText.
+      </p>
+      <p>Применение: добавляем атрибут тега rel="Какое нибудь имя"</p>
+      <p>Пример смотри в коде, тут будет только кнопка</p>
+      <button ref="ButtonRefs" @click="refsShow">
+        Нажми и смотри в консоль разработчика или тут!
+      </button>
+      <div class="refsData">
+        Список того, что сейчас находится в refs:
+        <div class="usernameList" v-for="item in refsArray">
+          Название ref: {{ item }}, значение: {{ this.$refs[item] }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -332,6 +370,8 @@ export default {
       ],
       imgButton: "Показать",
       imgSwitcher: false,
+      watchSwitcher: true,
+      refsArray: [],
     };
   },
   computed: {
@@ -435,12 +475,33 @@ export default {
         this.imgButton = "Скрыть";
       }
     },
+    watchSwitcherForButton() {
+      this.watchSwitcher
+        ? (this.watchSwitcher = false)
+        : (this.watchSwitcher = true);
+    },
+    refsShow() {
+      console.log(
+        `Объекты которые находятся в refs: `,
+        Object.keys(this.$refs)
+      );
+
+      this.refsArray = Object.keys(this.$refs);
+    },
+  },
+  watch: {
+    watchSwitcher(newVal, old) {
+      console.log(
+        `Изменилась переменная watchSwitcher, новое значение: ${newVal}, старое значение: ${old}`
+      );
+    },
   },
   beforeCreate() {
     console.log("Работа хука beforeCreate");
   },
   created() {
     console.log("Работа хука created");
+    console.log(`Объекты которые находятся в refs: `, this.$refs);
   },
   beforeMount() {
     console.log("Работа хука beforeMount");
@@ -449,6 +510,7 @@ export default {
   mounted() {
     this.getUsers();
     console.log("Работа хука mounted");
+    console.log(`Объекты которые находятся в refs: ${this.$refs}`);
   },
   beforeUpdate() {
     console.log("Работа хука beforeUpdate");
