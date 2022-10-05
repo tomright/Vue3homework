@@ -230,21 +230,62 @@
     </div>
     <div class="exampleNote">
       <h2>Жизненный цикл компонента во VueJS. Хуки.</h2>
-      <button @click="simpleSwitcher">
-        {{ imgButton }}
-      </button>
-      <br>
-      <a
-        href="https://habr.com/ru/company/vk/blog/350962/?ysclid=l8udmnc49n759197539"
-      >
-        Отличная статья на Хабре по хукам</a
-      >
-      <br>
-      <img
-        v-show="imgSwitcher"
-        src="./assets/lifecycle.svg"
-        alt="Жизненный цикл приложения"
-      />
+      <div class="flexcolumn">
+        <button class="flexColumnButton" @click="simpleSwitcher">
+          {{ imgButton }}
+        </button>
+        <br />
+        <a
+          href="https://habr.com/ru/company/vk/blog/350962/?ysclid=l8udmnc49n759197539"
+          target="_blank"
+        >
+          Отличная статья на Хабре по хукам</a
+        >
+        <br />
+        <img
+          v-show="imgSwitcher"
+          src="./assets/lifecycle.svg"
+          alt="Жизненный цикл приложения"
+        />
+      </div>
+      <h3>Краткое описание хуков, которые нужно писать в export default:</h3>
+      <p>
+        <strong>beforeCreate()</strong> - хук выполняется прямо после
+        инициализации, данные еще не реактивны, события не раскиданы.
+      </p>
+      <p>
+        <strong>created()</strong> - можно получить доступ к
+        <s>ректальным</s> реактивным данным и активным событиям.
+      </p>
+      <p>
+        <strong>beforeMount()</strong> - выполняется до первичной отрисовки, но
+        после компилирования шаблона или функции отрисовки.
+      </p>
+      <p>
+        <strong>mounted()</strong> - выполняется сразу после инициализации DOM
+        дерева, имеет полный доступ к реактивным компонентам, шаблонам и
+        отрисованному DOM дереву(через this.$el)
+      </p>
+      <p>
+        <strong>beforeUpdate()</strong> - срабатывает после изменения данных, но
+        перед началом переисовки DOM. Можно получить новые данные перед тем как
+        они перерисуются.
+      </p>
+      <p>
+        <strong>update()</strong> - вызывается после изменения в DOM дереве.
+        Самое безопасное место чтобы получить доступ к DOM после изменения.
+      </p>
+      <p>
+        <strong>beforeDestroy()</strong> - срабатывает перед уничтожение
+        приложения. Приложение все еще работает, но его дни сочтены и можно
+        прибраться, отвязавшись от ненужных событий или рекативных подписей.
+      </p>
+      <p><strong>destroyed()</strong> - ну тут уже все уничтоженно.</p>
+      <p>
+        Работа хуков описана в коде, а так же можно посмотреть логи в консле по
+        каждому хуку. Хуки beforeDestroy и destroyed не удалось показать на этой
+        странице...
+      </p>
     </div>
   </div>
 </template>
@@ -395,8 +436,31 @@ export default {
       }
     },
   },
+  beforeCreate() {
+    console.log("Работа хука beforeCreate");
+  },
+  created() {
+    console.log("Работа хука created");
+  },
+  beforeMount() {
+    console.log("Работа хука beforeMount");
+  },
+
   mounted() {
     this.getUsers();
+    console.log("Работа хука mounted");
+  },
+  beforeUpdate() {
+    console.log("Работа хука beforeUpdate");
+  },
+  updated() {
+    console.log("Работа хука update");
+  },
+  beforeDestroy() {
+    console.log("Работа хука beforeDestroy");
+  },
+  destroyed() {
+    console.log("Работа хука destroyed");
   },
 };
 </script>
@@ -469,5 +533,18 @@ hr {
 }
 .usernameList:nth-child(even) {
   background-color: azure;
+}
+.flexcolumn {
+  display: flex;
+  flex-direction: column;
+}
+.flexcolumn a {
+  margin: 15px;
+}
+.flexColumnButton {
+  position: sticky;
+  top: 20px;
+  width: 100px;
+  height: 30px;
 }
 </style>
