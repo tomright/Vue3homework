@@ -1,6 +1,5 @@
 <template>
   <TodoItem
-    class="usernameList"
     v-for="({ filmName, year }, index) in vForIndexTestArray"
     :filmName="filmName"
     :year="year"
@@ -26,20 +25,3 @@ export default {
 };
 </script>
 
-<style>
-.usernameList {
-  border: 1px solid darkgreen;
-  margin-top: 10px;
-}
-.usernameList:nth-child(odd) {
-  background-color: rgb(235, 255, 219);
-}
-.usernameList:nth-child(even) {
-  background-color: azure;
-}usernameList:nth-child(odd) {
-  background-color: rgb(235, 255, 219);
-}
-.usernameList:nth-child(even) {
-  background-color: azure;
-}
-</style>

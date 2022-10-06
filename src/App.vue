@@ -325,27 +325,60 @@
         </div>
       </div>
     </div>
-    <div class="exampleNote">
-      <h2>Создание и добавление компонентов</h2>
+    <!-- Добавил анимацию подсветки -->
+    <div
+      :class="{ animGreen: boolAnimGreen }"
+      class="exampleNote"
+      id="animWhite"
+    > 
+      <h2>
+        Создание и добавление компонентов <a name="CreateAndAddComponent"></a>
+      </h2>
       <p>
         Для создания компоненты, по договоренности, нужно в папке components,
         создать файл <strong> НазваниеКомпонента.vue</strong>.
       </p>
       <p>
         Внутри файла воссоздать стандартную структуру Vue3 шаблона(template,
-        script, style). В секцию script, в export default, добавить свойство name: 'ИмяКомпонента'
+        script, style). В секцию script, в export default, добавить свойство
+        name: 'ИмяКомпонента'
       </p>
       <p>Далее необходимо добавить:</p>
-        <ul>
-          <li>App.vue импорт этого компонента. Добавить в секцию script, <strong> import 'ИмяИзПоляDataNameКомпонента' from './components/НазваниеКомпонента.vue'</strong></li>
-          <li>Создать в export default свойство components и добавить в него ИмяИзПоляDataNameКомпонента</li>
-          <li>объвить в template этот компонент</li>
-        </ul> 
+      <ul>
+        <li>
+          App.vue импорт этого компонента. Добавить в секцию script,
+          <strong>
+            import 'ИмяИзПоляDataNameКомпонента' from
+            './components/НазваниеКомпонента.vue'</strong
+          >
+        </li>
+        <li>
+          Создать в export default свойство components и добавить в него
+          ИмяИзПоляDataNameКомпонента
+        </li>
+        <li>объвить в template этот компонент</li>
+      </ul>
 
       <div class="exampAddComponents">
         <h3>Пример добавления:</h3>
         <TodoList></TodoList>
       </div>
+    </div>
+    <div class="exampleNote">
+      <h2>props</h2>
+      <p>
+        props - это свойство, которе необходимо для передачи некоторых данных в
+        компоненту, извне. Яркий пример педеача в компоненту значений полученных
+        через v-for.
+      </p>
+      <h3>Синтаксис:</h3>
+      <p>Прописываются в export default {components: НазваниеКомпонента}</p>
+      <p>
+        Пример работы пропсов смотри в исходном коде
+        <a @click="illuminationGreen" href="#CreateAndAddComponent"
+          >этой записи</a
+        >
+      </p>
     </div>
   </div>
 </template>
@@ -395,6 +428,8 @@ export default {
       imgSwitcher: false,
       watchSwitcher: true,
       refsArray: [],
+      props: ["filmName", "year", "index"],
+      boolAnimGreen: false,
     };
   },
   computed: {
@@ -511,15 +546,25 @@ export default {
 
       this.refsArray = Object.keys(this.$refs);
     },
+    illuminationGreen() {
+      this.boolAnimGreen = true;
+    },
   },
   components: {
-    TodoList, 
+    TodoList,
   },
   watch: {
     watchSwitcher(newVal, old) {
       console.log(
         `Изменилась переменная watchSwitcher, новое значение: ${newVal}, старое значение: ${old}`
       );
+    },
+    boolAnimGreen() {
+      if (this.boolAnimGreen) {
+        setTimeout(() => {
+          this.boolAnimGreen = false;
+        }, 1000);
+      }
     },
   },
   beforeCreate() {
@@ -634,5 +679,12 @@ hr {
   top: 20px;
   width: 100px;
   height: 30px;
+}
+.animGreen {
+  background-color: green;
+}
+#animWhite {
+  transition-property: ;
+  transition-duration: 1s;
 }
 </style>
