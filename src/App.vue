@@ -684,7 +684,6 @@ hr {
   background-color: green;
 }
 #animWhite {
-  transition-property: ;
   transition-duration: 1s;
 }
 </style>
