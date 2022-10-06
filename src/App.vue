@@ -325,10 +325,33 @@
         </div>
       </div>
     </div>
+    <div class="exampleNote">
+      <h2>Создание и добавление компонентов</h2>
+      <p>
+        Для создания компоненты, по договоренности, нужно в папке components,
+        создать файл <strong> НазваниеКомпонента.vue</strong>.
+      </p>
+      <p>
+        Внутри файла воссоздать стандартную структуру Vue3 шаблона(template,
+        script, style). В секцию script, в export default, добавить свойство name: 'ИмяКомпонента'
+      </p>
+      <p>Далее необходимо добавить:</p>
+        <ul>
+          <li>App.vue импорт этого компонента. Добавить в секцию script, <strong> import 'ИмяИзПоляDataNameКомпонента' from './components/НазваниеКомпонента.vue'</strong></li>
+          <li>Создать в export default свойство components и добавить в него ИмяИзПоляDataNameКомпонента</li>
+          <li>объвить в template этот компонент</li>
+        </ul> 
+
+      <div class="exampAddComponents">
+        <h3>Пример добавления:</h3>
+        <TodoList></TodoList>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import axios from "axios";
+import TodoList from "./components/TodoList.vue";
 export default {
   //есть договоренность что в eport default есть методы data() - который возвращает некоторый объект с данными, methods
   data() {
@@ -488,6 +511,9 @@ export default {
 
       this.refsArray = Object.keys(this.$refs);
     },
+  },
+  components: {
+    TodoList, 
   },
   watch: {
     watchSwitcher(newVal, old) {
