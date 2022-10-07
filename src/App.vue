@@ -330,7 +330,7 @@
       :class="{ animGreen: boolAnimGreen }"
       class="exampleNote"
       id="animWhite"
-    > 
+    >
       <h2>
         Создание и добавление компонентов <a name="CreateAndAddComponent"></a>
       </h2>
@@ -368,11 +368,22 @@
       <h2>props</h2>
       <p>
         props - это свойство, которе необходимо для передачи некоторых данных в
-        компоненту, извне. Яркий пример педеача в компоненту значений полученных
-        через v-for.
+        компоненту, извне. Пример: педеача в компоненту значений полученных
+        через v-for, передача некоторых полей родительского компонента.
       </p>
       <h3>Синтаксис:</h3>
-      <p>Прописываются в export default {components: НазваниеКомпонента}</p>
+      <p>
+        Прописываются в export default {components: НазваниеКомпонента},
+        компоненты, в которую нужно передать некоторые значения из родительского
+        компонента. В объявлении дочерней компо ненты, нужно прописать какие
+        данные передаем: :filmName="filmName" :year="year" :index="index"
+      </p>
+      <p>
+        Так же есть механизм, когда в объявлении ставится v-bind на объект с
+        данными, в результате дочерний компонент получает объект, поля которого
+        буду сопоставляться с props.
+      </p>
+
       <p>
         Пример работы пропсов смотри в исходном коде
         <a @click="illuminationGreen" href="#CreateAndAddComponent"
@@ -380,6 +391,7 @@
         >
       </p>
     </div>
+    <div class="exampleNote"></div>
   </div>
 </template>
 <script>
@@ -548,6 +560,9 @@ export default {
     },
     illuminationGreen() {
       this.boolAnimGreen = true;
+      setTimeout(() => {
+        this.boolAnimGreen = false;
+      }, 1000);
     },
   },
   components: {
@@ -558,13 +573,6 @@ export default {
       console.log(
         `Изменилась переменная watchSwitcher, новое значение: ${newVal}, старое значение: ${old}`
       );
-    },
-    boolAnimGreen() {
-      if (this.boolAnimGreen) {
-        setTimeout(() => {
-          this.boolAnimGreen = false;
-        }, 1000);
-      }
     },
   },
   beforeCreate() {
@@ -681,7 +689,7 @@ hr {
   height: 30px;
 }
 .animGreen {
-  background-color: green;
+  background-color: rgba(44, 228, 44, 0.438);
 }
 #animWhite {
   transition-duration: 1s;
