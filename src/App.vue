@@ -391,7 +391,9 @@
         >
       </p>
     </div>
-    <div class="exampleNote"></div>
+    <div class="exampleNote">
+      <h2>Передача данных из дочернего компонента в родительский. this.$emit</h2>
+    </div>
   </div>
 </template>
 <script>
