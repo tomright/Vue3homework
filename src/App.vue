@@ -446,6 +446,14 @@
         >
       </p>
     </div>
+    <div class="exampleNote">
+    <h2>v-model - двухсторонее связывание.</h2>
+    <p>Для двухсторонней привязки используют директиву <strong>v-mode="переменная"</strong></p>
+    <p><strong>v-mode</strong> - можно применять только для &lt;input&gt;, &lt;select&gt;, &lt;textarea&gt; и компонентов Vue.</p>
+    <h3>Пример:</h3>
+    <input type="text"  v-model="vmodelTest" placeholder="Напиши что нибудь!">
+    <p>{{vmodelTest}}</p>
+    </div>
   </div>
 </template>
 <script>
@@ -496,6 +504,7 @@ export default {
       refsArray: [],
       props: ["filmName", "year", "index"],
       boolAnimGreen: false,
+      vmodelTest: '',
     };
   },
   computed: {
