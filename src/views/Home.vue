@@ -469,15 +469,24 @@
       <button class="buttonMargin10" @click="programJump">
         Тестирование программного перехода
       </button>
-      <br />
+      <br style="margin-top: 10px" />
       <router-link to="/aboutus">Тестовая ссылка о нас.</router-link>
+      <br style="margin-top: 10px" />
       <p>Пример с передачей данных в URL</p>
       <input
         type="text"
         v-model="propsToJump"
         placeholder="Введите данные для передачи"
       />
-      <router-link :to="propsToJumpURL+'/'+propsToJump+'/'">Передача параметров в URL</router-link>
+      <router-link
+        style="margin-left: 15px"
+        :to="propsToJumpURL + '/' + propsToJump + '/'"
+        >Передача параметров в URL</router-link
+      >
+      <br style="margin-bottom: 10px" />
+      <RouterLink to="/alsdfj"
+        >Кривая ссылка ведущая в далеко и на долго...</RouterLink
+      >
     </div>
   </div>
 </template>
@@ -532,7 +541,7 @@ export default {
       boolAnimGreen: false,
       vmodelTest: "",
       propsToJump: "",
-      propsToJumpURL: 'itemDetails'
+      propsToJumpURL: "itemDetails",
     };
   },
   computed: {

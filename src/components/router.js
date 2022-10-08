@@ -20,6 +20,11 @@ const routes = [
     meta: { title: "Параметризация" },
     props: true,
   },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () => import("@/views/NotFoundPage.vue"),
+  },
 ];
 const router = createRouter({
   routes,
