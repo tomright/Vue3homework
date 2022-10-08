@@ -177,7 +177,7 @@
         <button @click="switchColor" class="buttonMarginLeft10, buttonMargin10">
           Добавить к тексту класс цвета
         </button>
-        <p :class="{ red: colorBoolean }">
+        <p :class="{ redText: colorBoolean }">
           Пример текста, которому будем менять цвет.
         </p>
       </div>
@@ -361,7 +361,9 @@
 
       <div class="exampAddComponents">
         <h3>Пример добавления:</h3>
-        <TodoList></TodoList>
+        <TodoList>
+          <h4>Список фильмов:</h4>
+        </TodoList>
       </div>
     </div>
     <div class="exampleNote">
@@ -392,7 +394,57 @@
       </p>
     </div>
     <div class="exampleNote">
-      <h2>Передача данных из дочернего компонента в родительский. this.$emit</h2>
+      <h2>
+        Передача данных из дочернего компонента в родительский. this.$emit
+      </h2>
+      <p>
+        Прописываем в дочернем компоненте, в каком нибудь методе, который нужно
+        передать, следующий код:
+      </p>
+      <p>
+        <strong> this.$emit('названиеСобытия', какаятоПолезнаяНагрузка)</strong>
+      </p>
+      <p>
+        Так же в дочернем компоненете, добавляем свойство emits: ['название
+        события'], в export default
+      </p>
+      <p>
+        Далее в родительском компоненте, в объявлении дочернего компонента,
+        нужно прослушать это событие на переданные данные(событие) выше, то есть
+        нам нужно засунуть в какой то метод, событие, которое мы получили.
+      </p>
+      <p>
+        И далее уже описываем метод, то есть, то что он будет делать с
+        полученным событием.
+      </p>
+      <p>
+        Пример работы emit смотри в исходном коде
+        <a @click="illuminationGreen" href="#CreateAndAddComponent"
+          >этой записи</a
+        >
+      </p>
+    </div>
+    <div class="exampleNote">
+      <h2>Работа со слотами.</h2>
+      <p>
+        слоты используются для параметризации отображения дочернего компонента.
+      </p>
+      <p>
+        В дочернем элементе пишем <strong> &lt;slot&gt;</strong> "тут можно
+        ввести значение по умолчанию" <strong>&lt;/slot&gt;</strong>
+      </p>
+      <p>В объявлении дочернего элемета добавляем данные для передчи в слот:</p>
+      <p>
+        <strong>&lt;TodoList&gt;</strong> Этот текст передасться в слот, который
+        находится в дочернем компоненте TodoList
+        <strong>&lt;/TodoList&gt;</strong>
+      </p>
+      <p>
+        Пример работы слотов смотри в исходном коде
+        <a @click="illuminationGreen" href="#CreateAndAddComponent"
+          >этой записи</a
+        >
+      </p>
     </div>
   </div>
 </template>
@@ -473,11 +525,7 @@ export default {
       }
     },
     switchColor() {
-      if (this.colorBoolean) {
-        this.colorBoolean = false;
-      } else {
-        this.colorBoolean = true;
-      }
+      this.colorBoolean = !this.colorBoolean;
     },
     activationButton() {
       if (this.isButtonDisabled) {
@@ -643,6 +691,9 @@ hr {
 }
 .red {
   background-color: red;
+}
+.redText {
+  color: red;
 }
 .blue {
   background-color: blue;

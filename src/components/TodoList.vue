@@ -1,9 +1,16 @@
 <template>
+  <!-- добавили слот -->
+  <slot>
+    <p style="color: red">
+      Что то сломалось и мы не получили данные для вставки
+    </p></slot
+  >
   <TodoItem
     v-for="({ filmName, year }, index) in vForIndexTestArray"
     :filmName="filmName"
     :year="year"
     :index="index"
+    @deleteFilm="deleteFilm1"
   >
   </TodoItem>
 </template>
@@ -22,6 +29,11 @@ export default {
     };
   },
   components: { TodoItem },
+  methods: {
+    deleteFilm1(event) {
+      console.log("asdf", event);
+      this.vForIndexTestArray.splice(event, 1);
+    },
+  },
 };
 </script>
-

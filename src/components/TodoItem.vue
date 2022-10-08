@@ -3,12 +3,19 @@
     <p>Порядковый номер фильма: {{ index + 1 }}</p>
     <p>Название фильма: {{ filmName }}</p>
     <p>Год выхода фильма: {{ year }}</p>
+    <button @click="deleteFilm">Удалить фильм</button>
   </div>
 </template>
 <script>
 export default {
   name: "TodoItem",
   props: ["filmName", "year", "index"],
+  emits: ["deleteFilm"],
+  methods: {
+    deleteFilm() {
+      this.$emit("deleteFilm", this.index);
+    },
+  },
 };
 </script>
 <style scoped>
