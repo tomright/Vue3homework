@@ -13,6 +13,13 @@ const routes = [
     component: () => import("@/components/AboutUs.vue"),
     meta: { title: "О нас" },
   },
+  {
+    path: "/itemDetails/:id/",
+    name: "itemDetails",
+    component: () => import("@/views/ItemDetails.vue"),
+    meta: { title: "Параметризация" },
+    props: true,
+  },
 ];
 const router = createRouter({
   routes,

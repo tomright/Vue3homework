@@ -471,6 +471,13 @@
       </button>
       <br />
       <router-link to="/aboutus">Тестовая ссылка о нас.</router-link>
+      <p>Пример с передачей данных в URL</p>
+      <input
+        type="text"
+        v-model="propsToJump"
+        placeholder="Введите данные для передачи"
+      />
+      <router-link :to="propsToJumpURL+'/'+propsToJump+'/'">Передача параметров в URL</router-link>
     </div>
   </div>
 </template>
@@ -524,6 +531,8 @@ export default {
       props: ["filmName", "year", "index"],
       boolAnimGreen: false,
       vmodelTest: "",
+      propsToJump: "",
+      propsToJumpURL: 'itemDetails'
     };
   },
   computed: {
@@ -656,6 +665,9 @@ export default {
         `Изменилась переменная watchSwitcher, новое значение: ${newVal}, старое значение: ${old}`
       );
     },
+    //   propsToJump() {
+    //     this.propsToJumpURL
+    // }
   },
   beforeCreate() {
     console.log("Работа хука beforeCreate");
