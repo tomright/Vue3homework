@@ -19,4 +19,9 @@ const router = createRouter({
   history: createWebHistory(),
 });
 
+router.beforeEach(function (to, from, next) {
+  document.title = to.meta.title || "Справочник";
+  next();
+});
+
 export default router;
