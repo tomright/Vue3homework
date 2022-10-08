@@ -466,6 +466,10 @@
     </div>
     <div class="exampleNote">
       <h2>Vue Router</h2>
+      <button class="buttonMargin10" @click="programJump">
+        Тестирование программного перехода
+      </button>
+      <br />
       <router-link to="/aboutus">Тестовая ссылка о нас.</router-link>
     </div>
   </div>
@@ -635,6 +639,12 @@ export default {
       setTimeout(() => {
         this.boolAnimGreen = false;
       }, 1000);
+    },
+    programJump() {
+      console.log(
+        "Программый переход, типа какая то логика работы тут описана."
+      );
+      this.$router.push("/aboutus");
     },
   },
   components: {
