@@ -534,7 +534,87 @@
       <h3>Создаем файл index.js</h3>
       <p>Это некий store, некое хранилище данных.</p>
       <p>Импортируем файлы store: import { createStore } from "vuex";</p>
-      <p>Вставляем следующий код:</p>
+      <p>Вставляем следующий код:
+        <pre>
+
+          const store = createStore({
+            state: {
+              // наш store, тут хранятся данные
+              count: 0,
+            },
+            getters: { // аналог computed методов, то есть это что то, что вычисляется, если произошло изменение. Так же можно просто возвращать state.
+              countPlusOne(state) {
+                return state.count + 1;
+              },
+            },
+            actions: {     // здесь описываются "дорогие" методы, то есть методы, которые долго идут по времени, например обращения на серверу
+                          // однако сами методы не имею прямого доступа к state, они лишь могут вызвать методы из мутации. 
+              async save() {
+                console.log("Сохранение завершенно - тестовое сообщение");
+              },
+              saveWithEdit(context) {
+                console.log("Сохранение с изменением state");
+                context.commit("increment");
+              },
+            },
+            mutation: {  // тут описываются методы для изменения state, эти методы должны быть синхронными
+              increment(state) {
+                state.count++;
+              },
+            },
+            modules: {
+              TodoList,
+            },
+          });
+
+          export default store;
+
+        </pre>
+      </p>
+      <h3>Добавляем в main.js импорты</h3>
+      <p><pre>
+              <strong>import store from './store/index'</strong>
+              createApp(App).use(router).<strong>use(store)</strong>.mount("#app");
+      </pre></p>
+      <h3>Как работать:</h3>
+      <ul>
+        <li> <strong> &lcub;&lcub; $store.state.count &rcub;&rcub; </strong> - добавление дынных в компоненту для отображения.</li>
+        <li><strong> this.$store.state.count</strong> - получение данных и store в методах.</li>
+        <li><strong>this.$store.dispatch("save")</strong> - вызываем метод из action, где save - это название метода.</li>
+        <li><strong>context.commit("increment", 'может быть какая то нагрузка, один объект')</strong> - вызов метода из мутации. </li>
+      </ul>
+      <h3>Модули</h3>
+      <p>Если все пихать в один state, то со временем он разрастется и превратиться в свалку, как например эта страница, потому что нет времени переписать...</p>
+      <p>Чтобы создать свой модуль, нужно в папке store, создать файл названиеСтора.js</p>
+      <p>Там описываем все как в обычном сторе, но только все экспортируем:</p>
+      <p>
+        <pre>
+          export default {
+            namespaced: true,
+            state: {
+              items: [
+                { filmName: "Области тьмы", year: 2011 },
+                { filmName: "Игра на понижение", year: 2015 },
+                { filmName: "Такси", year: 1998 },
+              ],
+            },
+            getters: {
+              todoItems(state) {
+                return state.items;
+              },
+            },
+          };
+        </pre>
+      </p>
+      <p>Добавляем в главный файл stor'a, index.js, следующий код:</p>
+      <p>
+        <pre>
+          modules: {
+            TodoList,
+          },
+        </pre>
+      </p>
+      <p>this.$store.getters[<strong>'TodoList</strong>/todoItems'] - где <strong>TodoList</strong>, это название стора. Мы как бы говорим, чтоб взяли todoItems из конкретного стора TodoList.</p>
       <h3>Пример:</h3>
       <p><strong>Counter:</strong> {{ $store.state.count }}</p>
       <p><strong>Getters:</strong> {{ $store.getters.countPlusOne }}</p>

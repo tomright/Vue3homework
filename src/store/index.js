@@ -6,12 +6,13 @@ const store = createStore({
     // наш store, тут хранятся данные
     count: 0,
   },
-  getters: {
+  getters: { // аналог computed методов, то есть это что то, что вычисляется, если произошло изменение. Так же можно просто возвращать state.
     countPlusOne(state) {
       return state.count + 1;
     },
   },
-  actions: {
+  actions: {     // здесь описываются "дорогие" методы, то есть методы, которые долго идут по времени, например обращения на серверу
+                 // однако сами методы не имею прямого доступа к state, они лишь могут вызвать методы из мутации. 
     async save() {
       console.log("Сохранение завершенно - тестовое сообщение");
     },
@@ -20,7 +21,7 @@ const store = createStore({
       context.commit("increment");
     },
   },
-  mutation: {
+  mutation: {  // тут описываются методы для изменения state, эти методы должны быть синхронными
     increment(state) {
       state.count++;
     },
