@@ -466,6 +466,45 @@
     </div>
     <div class="exampleNote">
       <h2>Vue Router</h2>
+      <h3>Установка и подключение:</h3>
+      <ol>
+        <li>npm install vue-router@4</li>
+        <li>В папке src/components создать файл router.js</li>
+        <li>В файле router.js добавить следующее:</li>
+        <ul>
+          <li>import { createRouter, createWebHistory } from "vue-router";</li>
+          <li>
+            const routes = [{ path: '/',
+            <strong> // путь который будет отображаться в URL </strong><br />
+            name: 'Homepage', <strong>// внутренее имя страницы</strong> <br />
+            components: ()=> import('@путь до файла vue'),
+            <strong
+              >// импортируем компоненту, на которую будем переходить</strong
+            >
+            <br />
+            meta: {title: 'Главная страница'}
+            <strong
+              >// полезная мета-информация, например задаем title для каждой
+              страницы</strong
+            >
+            <br />},
+          </li>
+          <li>
+            const router = createRouter({ <br />
+            routes, history: createWebHistory(), <br />
+            });
+          </li>
+          <li>export default router;</li>
+        </ul>
+        <li>
+          В файле App.vue добавляем &lt;router-view&gt; &lt;/router-view&gt;
+        </li>
+        <li>
+          Добавить ссылки при помощи &lt;router-link to='путь до vue компоненты,
+          что описаны в router.js'&gt; Название ссылки &lt;router-link&gt;
+        </li>
+      </ol>
+      <h3>Примеры:</h3>
       <button class="buttonMargin10" @click="programJump">
         Тестирование программного перехода
       </button>
@@ -487,6 +526,22 @@
       <RouterLink to="/alsdfj"
         >Кривая ссылка ведущая в далеко и на долго...</RouterLink
       >
+    </div>
+    <div class="exampleNote">
+      <h2>Vuex</h2>
+      <h3>Установка:</h3>
+      <p>npm install vuex@next --save</p>
+      <h3>Создаем файл index.js</h3>
+      <p>Это некий store, некое хранилище данных.</p>
+      <p>Импортируем файлы store: import { createStore } from "vuex";</p>
+      <p>Вставляем следующий код:</p>
+      <h3>Пример:</h3>
+      <p><strong>Counter:</strong> {{ $store.state.count }}</p>
+      <p><strong>Getters:</strong> {{ $store.getters.countPlusOne }}</p>
+      <p><strong>action</strong>(нажми на кнопку ниже и открой консоль):</p>
+      <button @click="saveAction">Сохранить данные</button>
+      <p><strong>action с изменением:</strong></p>
+      <button @click="saveActionWithEditState">Сохранить данные</button>
     </div>
   </div>
 </template>
@@ -663,6 +718,12 @@ export default {
         "Программый переход, типа какая то логика работы тут описана."
       );
       this.$router.push("/aboutus");
+    },
+    saveAction() {
+      this.$store.dispatch("save");
+    },
+    saveActionWithEditState() {
+      this.$store.dispatch("saveWithEdit");
     },
   },
   components: {
